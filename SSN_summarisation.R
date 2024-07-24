@@ -1,5 +1,5 @@
-library("dplyr")
-library("tidyr")
+library(dplyr)
+library(tidyr)
 
 taxostats = read.table('80CC_stats_with_taxo', header=T)
 
@@ -150,4 +150,3 @@ Mini_Faure <- data.frame(
 
 library(openxlsx)
 write.xlsx(Mini_Faure, file = "SSN_summary")
-
