@@ -1,9 +1,5 @@
-#!/usr/bin/env Rscript
-
-#install.packages("dplyr")
-#install.packages("tidyr")
-library("dplyr")
-library("tidyr")
+library(dplyr)
+library(tidyr)
 
 CC_Abund_80=read.table('SMAGs_CC_Abund_80_all_noOLD_SAGs', header=F)
 colnames(CC_Abund_80)<-c("CC_ID","Genes")
@@ -29,7 +25,7 @@ cc_size = CC_Annot %>%
   do(data.frame(size = nrow(.)))
 summary(cc_size)
 
-# print(sum(CC_Annot$CC_ID %in% "CC_10")) (just to check on a few ccs that what I got in cc_size was indeed the number of occurences of each cc in CC_Annot)
+# print(sum(CC_Annot$CC_ID %in% "CC_10")) (just to check on a few ccs that cc_size's result was indeed the number of occurences of each cc in CC_Annot)
 
 #### Functional indices 80 ####
 func_homscore = function(x) {
@@ -220,7 +216,7 @@ unkscore_taxo_Order = cc_taxo %>%
   do(data.frame(Unknowns.taxo.Order=func_unkscore(.)))
 unkscore_taxo_Order = as.data.frame(unkscore_taxo_Order)
 
-##### family level #####
+##### Family level #####
 func_homscore = function(x) {
   annot = as.character(x$Family)
   nprot = nrow(x)
@@ -330,4 +326,3 @@ cc_stats = Reduce(function(x,y) merge(x,y),list(cc_size, homscore_kegg, homscore
                                                 unkscore_taxo_Phylum, unkscore_taxo_Class, unkscore_taxo_Order,
                                                 unkscore_taxo_Family, unkscore_taxo_Genus, unkscore_taxo_MAG))
 write.table(cc_stats, "80CC_stats_with_taxo", quote = FALSE)
-
